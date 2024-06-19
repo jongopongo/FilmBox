@@ -115,3 +115,14 @@ video[controls] + .player-controls {
 .form-control.is-invalid {
 	margin-bottom: 0;
 }
+
+/* pro navigaci a tlačítko */
+nav {
+    display: flex;
+    align-items: center;
+}
+#menu-tlacitko {
+    background: none;
+    border: none;
+	font-size: 1.5rem;
+}

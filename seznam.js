@@ -5,7 +5,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/165/059/165059101_56d52a.jpg',
 			sirka: 663,
-			vyska: 909,
+			vyska: 999,
 		},
 		ochutnavka: 'České drama z období 1968.',
 		popis:
@@ -44,7 +44,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/162/393/162393560_2aca32.jpg',
 			sirka: 663,
-			vyska: 919,
+			vyska: 999,
 		},
 		ochutnavka: 'Francouzská komedie.',
 		popis:
@@ -57,7 +57,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/163/781/163781903_f1e217.png',
 			sirka: 420,
-			vyska: 593,
+			vyska: 440,
 		},
 		ochutnavka: 'Česká komedie.',
 		popis:
@@ -70,7 +70,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/002/166002844_2e67c1.jpg',
 			sirka: 420,
-			vyska: 622,
+			vyska: 440,
 		},
 		ochutnavka: 'Americký thriller o IT pracovnici s agorafobií.',
 		popis:
@@ -95,8 +95,8 @@ const filmy = [
 		nazev: 'Krakonošovo tajemství',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/933/166933672_58ebbc.jpg',
-			sirka: 420,
-			vyska: 592,
+			sirka: 663,
+			vyska: 1050,
 		},
 		ochutnavka: 'Česká vánoční pohádka z Krkonoš.',
 		popis:
@@ -105,27 +105,162 @@ const filmy = [
 	},
 ]
 
+
+//Pridani filmu
+const Bridgetons = 
+{
+	id:"Bridgetons",
+	nazev:"Bridgetonovi",
+	plakat:{ 
+	    url: 'https://m.media-amazon.com/images/I/91jzOPvXK0L._AC_SL1500_.jpg',
+	    sirka: 663,
+	    vyska: 820,
+	},
+	ochutnavka: 'Nová řada populárního seriálu',
+	popis:
+	    'Každá z letošních debutantek se chce stát hlavní hvězdou plesu. Nevýrazná mladá dáma, co žije dvojím životem, ve světě tajností a překvapení úplně rozkvete.',
+	premiera: '2024-05-10',
+}
+
+filmy.push(Bridgetons);
+
 //Bonus seznam filmu
-const seznamFilmuElm = document.querySelector ('#seznam-filmu');
-seznamFilmuElm.innerHTML = '';
-
-filmy.forEach((film) => {
-	seznamFilmuElm.innerHTML +=  `
-	<div class="col">
-			<div class="card">
-				<img
-					src="${film.plakat.url}"
-					width="${film.plakat.sirka}"
-					height="${film.plakat.vyska}"
-					class="card-img-top"
-					alt="plakát"
-				/>
-				<div class="card-body">
-					<h5 class="card-title">${film.nazev}</h5>
-						<p class="card-text">${film.ochutnavka}</p>
-						<a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
-				</div>
+if (document.querySelector('#seznam-filmu')) {
+	const seznamFilmu = document.querySelector('#seznam-filmu')
+	seznamFilmu.innerHTML = ''
+	filmy.forEach((film) => {
+		console.log(film.plakat.url)
+		seznamFilmu.innerHTML += `
+<div class="col">
+		<div class="card">
+			<img
+				src="${film.plakat.url}"
+				width="780"
+				height="520"
+				class="card-img-top"
+				alt="plakát"
+			/>
+			<div class="card-body">
+				<h5 class="card-title">${film.nazev}</h5>
+				<p class="card-text">${film.ochutnavka}</p>
+				<a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
 			</div>
-		</div>`
-});
+		</div >
+	</div >`
+	})
+}
 
+//7 Hodnoceni
+const hvezdy = document.querySelectorAll('.fa-star')
+let ohodnoceno = 0
+const nastavHodnoceni = (pocetHvezd) => {
+	let i = 0
+	hvezdy.forEach((hvezda) => {
+		i += 1
+
+		if (i <= pocetHvezd) {
+			hvezda.classList.remove('far')
+			hvezda.classList.add('fas')
+		} else if (i > pocetHvezd) {
+			hvezda.classList.add('far')
+			hvezda.classList.remove('fas')
+		}
+	})
+}
+const hvezdaClick = (evt) => {
+	ohodnoceno = Number(evt.target.textContent)
+	nastavHodnoceni(ohodnoceno)
+}
+const hvezdaMouseEnter = (evt) => {
+	nastavHodnoceni(Number(evt.target.textContent))
+}
+const hvezdaMouseLeave = () => {
+	nastavHodnoceni(ohodnoceno)
+}
+hvezdy.forEach((hvezda) => {
+	hvezda.addEventListener('click', hvezdaClick)
+	hvezda.addEventListener('mouseenter', hvezdaMouseEnter)
+	hvezda.addEventListener('mouseleave', hvezdaMouseLeave)
+})
+
+//8 Poznamka
+const textovePole = document.querySelector('#message-input')
+const zaskratvaciPolicko = document.querySelector('#terms-checkbox')
+if (document.querySelector('#note-form')) {
+	const formular = document.querySelector('#note-form')
+	formular.addEventListener('submit', (evt) => {
+		evt.preventDefault()
+		if (textovePole.value != '') {
+			if (!zaskratvaciPolicko.checked) {
+				zaskratvaciPolicko.classList.add('is-invalid')
+				zaskratvaciPolicko.focus()
+			} else if (zaskratvaciPolicko.checked) {
+				formular.innerHTML = `<p class="card-text">${textovePole.value}</p>`
+			}
+		} else if (textovePole.value === '') {
+			textovePole.classList.add('is-invalid')
+			textovePole.focus()
+		}
+	})
+}
+
+//9 Bonus: Vlastni ovladani prehravace
+if (document.querySelector('#prehravac')) {
+	const prehravac = document.querySelector('#prehravac')
+	const play = document.querySelector('.play')
+	const pause = document.querySelector('.pause')
+	const video = document.querySelector('video')
+	const casVidea = document.querySelector('.current-time')
+	const clickPlay = () => {
+		video.play()
+	}
+	const clickPause = () => {
+		video.pause()
+	}
+	const videoPlaying = () => {
+		prehravac.classList.add('playing')
+	}
+	const videoPause = () => {
+		prehravac.classList.remove('playing')
+	}
+	const videoTimeupdate = () => {
+		let minutyCelkem = Math.round(video.currentTime)
+		let minuty = minutyCelkem % 60
+		let hodiny = Math.floor(minutyCelkem / 60)
+		casVidea.textContent = `${String(hodiny).padStart(2, '0')}:${String(minuty).padStart(2, '0')}`
+	}
+	play.addEventListener('click', clickPlay)
+	pause.addEventListener('click', clickPause)
+	video.addEventListener('playing', videoPlaying)
+	video.addEventListener('pause', videoPause)
+	video.addEventListener('timeupdate', videoTimeupdate)
+
+	const stisknutyMezernik = (event) => {
+		if (
+			event.code === 'Space' &&
+			event.target.tagName !== 'TEXTAREA' &&
+			event.target.tagName !== 'INPUT' &&
+			event.target.tagName !== 'BUTTON'
+		) {
+			if (prehravac.classList.contains('playing')) {
+				video.pause()
+			} else {
+				video.play()
+			}
+		}
+	}
+	document.addEventListener('keydown', stisknutyMezernik)
+
+	const ovladaciPanel = document.querySelector('.player-controls')
+	const zobrazitPanel = () => {
+		clearInterval(odpocet)
+		odpocet = setInterval(skrytPanel, 3000);
+		ovladaciPanel.classList.remove('hidden')
+	}
+	const skrytPanel = () => {
+		ovladaciPanel.classList.add('hidden')
+	}
+	let odpocet
+	document.addEventListener('mousemove', zobrazitPanel)
+	document.addEventListener('click', zobrazitPanel)
+}

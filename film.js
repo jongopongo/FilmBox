@@ -139,7 +139,7 @@ formElm.addEventListener( 'submit', (evt) => {
 
 const detailFilmuElement = document.querySelector ('#detail-filmu');
 if (detailFilmuElement) {
-	const idFilmu = location.hash.substrint (1);
+	const idFilmu = location.hash.substring (1);
 	let film;
 	filmy.forEach ((porovnavanyFilm) => {
 		if (porovnavanyFilm.id ===idFilmu) {
@@ -279,3 +279,4 @@ const skrytOvladaciPanel = () => {
 let odpocet;
 document.addEventListener('mousemove', zobrazitOvladaciPanel);
 document.addEventListener('keydown', zobrazitOvladaciPanel);
+}
