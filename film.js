@@ -123,35 +123,7 @@ const Bridgetons =
 
 filmy.push(Bridgetons);
 
-//Bonus Detail filmu
-
-const formElm = document.querySelector ('#note-form');
-formElm.addEventListener( 'submit', (evt) => {
-	evt.preventDefault();
-
-	const textElm = document.querySelector('#message-input');
-	const checkElm = document.querySelector('#terms-checkbox');
-//vymazani validace	
-	textElm.classList.remove('is-invalid');
-  checkElm.classList.remove('is-invalid');
-
-  if (textElm.value.trim() === '') {
-    textElm.classList.add('is-invalid');
-  } else if (!checkElm.checked) {
-    checkElm.classList.add('is-invalid');
-  } else {
-
-    // Uspesna validace
-    const noteText = document.createElement('p');
-    noteText.className = 'card-text';
-    noteText.textContent = textElm.value;
-
-    // Vycisteni formulare
-    formElm.innerHTML = '';
-    formElm.appendChild(noteText);
-  }
-});
-
+//Ukol c.5
 //Detail filmu
 
 const detailFilmuElement = document.querySelector ('#detail-filmu');
@@ -174,8 +146,8 @@ if (detailFilmuElement) {
 }
 
 //Bonus premiera
-//Ziskani prvnku s id "premiera"
-let premieraElm = document.querySelector ('#premiera');
+//Ziskani prvku s id "premiera"
+const premieraElm = document.querySelector ('#premiera');
 
 if (premieraElm) {
  premieraElm.innerHTML = '';
@@ -183,12 +155,9 @@ if (premieraElm) {
 //Pro kazdy film
 filmy.forEach((film) => {
     if (film.id === location.hash.slice(1, location.hash.length)) { 
-	  let datumPremiery = dayjs(film.premiera);
-      let formatovaneDatum = datumPremiery.format('D. M. YYYY');
-
-
-// Vypocet rozdilu mezi dnesnim datem a datem premiery
-    let days = datumPremiery.diff(dayjs(), 'days');
+	  const datumPremiery = dayjs(film.premiera);
+      const formatovaneDatum = datumPremiery.format('D. M. YYYY');
+	  const days = datumPremiery.diff(dayjs(), 'days');
 
 // Vytvoreni zpravy na základě rozdílu mezi dnešním datem a datem premiéry
 let message = '';
@@ -206,12 +175,12 @@ let message = '';
   message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dní.`;
 }
 
-    // Vložení zprávy do prvku s id "premiera"
+// Vložení zprávy do prvku s id "premiera"
     premieraElm.innerHTML += `<p>${message}</p>`;
   }
 });
 
-//Bonus hodnocení
+//Ukol c.7
 const hvezdy = document.querySelectorAll('.fa-star');
 let ohvezdickovano = 0;
 
@@ -243,7 +212,36 @@ hvezdy.forEach((hvezda) => {
   hvezda.addEventListener('click', hvezdaMouseClick);
 });
 
-//Vlastní ovládání přehrávače
+//Ukol c.8
+const formular = document.querySelector ('#note-form');
+const formInput= document.querySelector('#message-input');
+const checkElm = document.querySelector('#terms-checkbox');
+
+	formular.addEventListener( 'submit', (evt) => {
+		evt.preventDefault();
+//vymazani validace	
+	formInput.classList.remove('is-invalid');
+    checkElm.classList.remove('is-invalid');
+
+  if (formInput.value.trim() === '') {
+    formInput.classList.add('is-invalid');
+  } else if (!checkElm.checked) {
+    checkElm.classList.add('is-invalid');
+  } else {
+
+    // Uspesna validace
+    const noteText = document.createElement('p');
+    noteText.className = 'card-text';
+    noteText.textContent = formInput.value;
+
+    // Vycisteni formulare
+    formInput.innerHTML = '';
+	//Validace poznamky
+    formInput.appendChild(noteText);
+  }
+});
+//Ukol c.9
+//Vlastni ovladani prehravace
 
 const prehravacElement = document.querySelector('#prehravac');
 const ovladaciPanelElement = prehravacElement.querySelector('.player-controls');
@@ -285,15 +283,22 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-const zobrazitOvladaciPanel = () => {
-  clearTimeout(odpocet);
-  odpocet = setTimeout(skrytOvladaciPanel, 3000);
-  ovladaciPanelElement.classList.remove('hidden');
-};
-const skrytOvladaciPanel = () => {
-  ovladaciPanelElement.classList.add('hidden');
-};
+
+
+//Extra bonus - skrytý panel
+const ovladaciPanel = document.querySelector('.player-controls');
 let odpocet;
+
+const zobrazitOvladaciPanel = () => {
+  clearTimeout(odpocet); // Resetuje casovac pri kazdém pohybu mysi nebo stisku klavesy
+  ovladaciPanel.classList.remove('hidden'); // Zobrazí ovladaci panel
+  odpocet = setTimeout(skrytOvladaciPanel, 3000); // Spusti casovac na skryti po 3 sekundach neaktivity
+};
+
+const skrytOvladaciPanel = () => {
+  ovladaciPanel.classList.add('hidden'); // Přidá třídu hidden pro skrytí ovládacího panelu
+};
+
+// Přidání event listenerů na dokument pro detekci pohybu myší a stisku klávesy
 document.addEventListener('mousemove', zobrazitOvladaciPanel);
 document.addEventListener('keydown', zobrazitOvladaciPanel);
-}

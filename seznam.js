@@ -106,7 +106,7 @@ const filmy = [
 ]
 
 
-//Pridani filmu
+//Bonus Pridani filmu
 const Bridgetons = {
     id: "Bridgetons",
     nazev: "Bridgetonovi",
@@ -122,9 +122,11 @@ const Bridgetons = {
 
 filmy.push(Bridgetons);
 
+//Ukol 4 
+//Seznam filmu
 const seznamFilmu = document.querySelector('#seznam-filmu');
 
-// Bonus seznam filmu
+
 if (seznamFilmu) {
     seznamFilmu.innerHTML = '';
     // Projde všechny filmy a přidá HTML pro každý film
