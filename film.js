@@ -127,7 +127,7 @@ filmy.push(Bridgetons);
 //Detail filmu
 
 const detailFilmuElement = document.querySelector ('#detail-filmu');
-if (detailFilmuElement) {
+/*if (detailFilmuElement) {*/
 	const idFilmu = location.hash.substring (1);
 	let film;
 	filmy.forEach ((porovnavanyFilm) => {
@@ -135,19 +135,49 @@ if (detailFilmuElement) {
 			film = porovnavanyFilm;
 		}
 	});
-	if (film) {
+
 	detailFilmuElement.querySelector('.card-title').textContent = film.nazev;
 	detailFilmuElement.querySelector('.card-text').textContent = film.popis;
 	const plakat = detailFilmuElement.querySelector('.img-fluid');
 	plakat.src = film.plakat.url;
 	plakat.width = film.plakat.sirka;
 	plakat.height = film.plakat.vyska;
-  }
+  
 }
+if (premieraElm) {
+	premieraElm.innerHTML = '';
 
+	// Pro každý film
+	filmy.forEach((film) => {
+	  if (film.id === location.hash.slice(1, location.hash.length)) {
+		const datumPremiery = dayjs(film.premiera);
+		const formatovaneDatum = datumPremiery.format('D. M. YYYY');
+		const days = datumPremiery.diff(dayjs(), 'days');
+  
+		// Vytvoření zprávy na základě rozdílu mezi dnešním datem a datem premiéry
+		let message = '';
+		if (days < -1) {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dny.`;
+		} else if (days === -1) {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dnem.`;
+		} else if (days === 0) {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, dnes je premiéra.`;
+		} else if (days === 1) {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} den.`;
+		} else if (days >= 2 && days <= 4) {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dny.`;
+		} else {
+		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dní.`;
+		}
+  
+		// Vložení zprávy do prvku s id "premiera"
+		premieraElm.innerHTML += `<p>${message}</p>`;
+	  }
+	});
+  }
 //Bonus premiera
 //Ziskani prvku s id "premiera"
-const premieraElm = document.querySelector ('#premiera');
+/*const premieraElm = document.querySelector ('#premiera');
 
 if (premieraElm) 
  premieraElm.innerHTML = '';
@@ -179,10 +209,10 @@ let message = '';
 // Vložení zprávy do prvku s id "premiera"
     premieraElm.innerHTML += `<p>${message}</p>`;
   }
-});
+});*/
 
 //Ukol c.7
-const hvezdy = document.querySelectorAll('.fa-star');
+/*const hvezdy = document.querySelectorAll('.fa-star');
 let ohvezdickovano = 0;
 
 const nastavHodnoceni = (pocetHvezd) => {
@@ -196,6 +226,20 @@ const nastavHodnoceni = (pocetHvezd) => {
     }
   });
 };
+*/
+function zvyrazniHvezdicky(pocet) {
+	const hvezdicky = document.querySelectorAll('.fa-star');
+  
+	hvezdicky.forEach((hvezdicka, index) => {
+	  if (index < pocet) {
+		hvezdicka.classList.remove('far');
+		hvezdicka.classList.add('fas');
+	  } else {
+		hvezdicka.classList.remove('fas');
+		hvezdicka.classList.add('far');
+	  }
+	});
+  }
 
 const hvezdaMouseEnter = (event) => {
   nastavHodnoceni(Number(event.target.textContent));
@@ -283,7 +327,6 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
-
 
 
 //Extra bonus - skrytý panel
