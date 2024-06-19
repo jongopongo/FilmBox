@@ -144,7 +144,7 @@ if (seznamFilmu) {
             </div>`;
     });
 }
-
+/*
 //7 Hodnoceni
 const hvezdy = document.querySelectorAll('.fa-star')
 let ohodnoceno = 0
@@ -258,4 +258,4 @@ if (document.querySelector('#prehravac')) {
 	let odpocet
 	document.addEventListener('mousemove', zobrazitPanel)
 	document.addEventListener('click', zobrazitPanel)
-}
+}*/

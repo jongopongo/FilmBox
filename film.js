@@ -149,9 +149,10 @@ if (detailFilmuElement) {
 //Ziskani prvku s id "premiera"
 const premieraElm = document.querySelector ('#premiera');
 
-if (premieraElm) {
+if (premieraElm) 
  premieraElm.innerHTML = '';
-
+ const idFilmu = location.hash.substring(1);
+ const film = filmy.find(f => f.id === idFilmu);
 //Pro kazdy film
 filmy.forEach((film) => {
     if (film.id === location.hash.slice(1, location.hash.length)) { 
