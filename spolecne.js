@@ -1,21 +1,21 @@
-console.log ('Funguju!');
+//Ukol c.3
+console.log("funguju!") //toto si zobrazuji do konzole pro jistotu,aby bylo zřejmé, že mi kód funguje
 
-// Získání tlačítka menu
-const menuButton = document.querySelector("#menu-tlacitko");
+// Definice promennych
+const menuButton = document.getElementById("menu-tlacitko");
+const menuPolozky = document.getElementById("menu-polozky");
+const menuTlacitko = document.querySelector(".fas");
 
-// Získání elementu s položkami menu
-const menuItems = document.querySelector("#menu-polozky");
+// Hamburger menu
+menuButton.addEventListener("click", function () {
+  document.getElementById("menu-polozky").classList.toggle("show");
+// Bonus
+  if (menuPolozky.classList.contains("show")) {
+    menuTlacitko.classList.add("fa-xmark");
+    menuTlacitko.classList.remove("fa-bars");
+  } else {
+    menuTlacitko.classList.add("fa-bars");
+    menuTlacitko.classList.remove("fa-xmark");
+  }
+});
 
-
-// Přidání posluchače události kliknutí na tlačítko
-menuButton.addEventListener("click", () => {
-    // Přepnutí třídy "show" u položek menu
-    menuItems.classList.toggle("show");
-
-//změna ikony tlačítka na křížek
-if (menuItems.classList.contains("show")) {
-    menuButton.innerHTML = '<i class="fas fa-xmark"></i>'; // Křížek
-} else {
-    menuButton.innerHTML = '<i class="fas fa-bars"></i>'; // Hamburger
-}
-})

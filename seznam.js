@@ -107,47 +107,40 @@ const filmy = [
 
 
 //Pridani filmu
-const Bridgetons = 
-{
-	id:"Bridgetons",
-	nazev:"Bridgetonovi",
-	plakat:{ 
-	    url: 'https://m.media-amazon.com/images/I/91jzOPvXK0L._AC_SL1500_.jpg',
-	    sirka: 663,
-	    vyska: 820,
-	},
-	ochutnavka: 'Nová řada populárního seriálu',
-	popis:
-	    'Každá z letošních debutantek se chce stát hlavní hvězdou plesu. Nevýrazná mladá dáma, co žije dvojím životem, ve světě tajností a překvapení úplně rozkvete.',
-	premiera: '2024-05-10',
-}
+const Bridgetons = {
+    id: "Bridgetons",
+    nazev: "Bridgetonovi",
+    plakat: {
+        url: 'https://m.media-amazon.com/images/I/91jzOPvXK0L._AC_SL1500_.jpg',
+        sirka: 663,
+        vyska: 820,
+    },
+    ochutnavka: 'Nová řada populárního seriálu',
+    popis: 'Každá z letošních debutantek se chce stát hlavní hvězdou plesu. Nevýrazná mladá dáma, co žije dvojím životem, ve světě tajností a překvapení úplně rozkvete.',
+    premiera: '2024-05-10',
+};
 
 filmy.push(Bridgetons);
 
-//Bonus seznam filmu
-if (document.querySelector('#seznam-filmu')) {
-	const seznamFilmu = document.querySelector('#seznam-filmu')
-	seznamFilmu.innerHTML = ''
-	filmy.forEach((film) => {
-		console.log(film.plakat.url)
-		seznamFilmu.innerHTML += `
-<div class="col">
-		<div class="card">
-			<img
-				src="${film.plakat.url}"
-				width="780"
-				height="520"
-				class="card-img-top"
-				alt="plakát"
-			/>
-			<div class="card-body">
-				<h5 class="card-title">${film.nazev}</h5>
-				<p class="card-text">${film.ochutnavka}</p>
-				<a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
-			</div>
-		</div >
-	</div >`
-	})
+const seznamFilmu = document.querySelector('#seznam-filmu');
+
+// Bonus seznam filmu
+if (seznamFilmu) {
+    seznamFilmu.innerHTML = '';
+    // Projde všechny filmy a přidá HTML pro každý film
+    filmy.forEach((film) => {
+        seznamFilmu.innerHTML += `
+            <div class="col">
+                <div class="card">
+                    <img src="${film.plakat.url}" width="780" height="520" class="card-img-top" alt="plakát" />
+                    <div class="card-body">
+                        <h5 class="card-title">${film.nazev}</h5>
+                        <p class="card-text">${film.ochutnavka}</p>
+                        <a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
+                    </div>
+                </div>
+            </div>`;
+    });
 }
 
 //7 Hodnoceni

@@ -105,6 +105,23 @@ const filmy = [
 	},
 ]
 
+//Pridani filmu
+const Bridgetons = 
+{
+	id:"Bridgetons",
+	nazev:"Bridgetonovi",
+	plakat:{ 
+	    url: 'https://m.media-amazon.com/images/I/91jzOPvXK0L._AC_SL1500_.jpg',
+	    sirka: 663,
+	    vyska: 820,
+	},
+	ochutnavka: 'Nová řada populárního seriálu',
+	popis:
+	    'Každá z letošních debutantek se chce stát hlavní hvězdou plesu. Nevýrazná mladá dáma, co žije dvojím životem, ve světě tajností a překvapení úplně rozkvete.',
+	premiera: '2024-05-10',
+}
+
+filmy.push(Bridgetons);
 
 //Bonus Detail filmu
 
