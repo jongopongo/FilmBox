@@ -1,5 +1,5 @@
 //Ukol c.3
-console.log("funguju!") //toto si zobrazuji do konzole pro jistotu,aby bylo zřejmé, že mi kód funguje
+console.log("funguju!") //toto si zobrazuji do konzole pro jistotu,aby bylo zrejme, ze mi kod funguje
 
 // Definice promennych
 const menuButton = document.getElementById("menu-tlacitko");

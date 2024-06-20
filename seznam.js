@@ -133,9 +133,15 @@ if (seznamFilmu) {
     filmy.forEach((film) => {
         seznamFilmu.innerHTML += `
             <div class="col">
-                <div class="card">
-                    <img src="${film.plakat.url}" width="780" height="520" class="card-img-top" alt="plakát" />
-                    <div class="card-body">
+                <div class="card h-100 d-flex flex-column justify-content-between ">
+				<img 
+				     src="${film.plakat.url}" 
+					 width="${film.plakat.sirka}"
+					height="${film.plakat.vyska}"
+                    class="card-img-top flex-grow-1" 
+                        alt="plakát"
+					/>
+					<div class="cardcard-body flex-grow-0 flex-shrink-0 mt-auto">
                         <h5 class="card-title">${film.nazev}</h5>
                         <p class="card-text">${film.ochutnavka}</p>
                         <a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
