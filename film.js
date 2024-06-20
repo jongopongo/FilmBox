@@ -127,7 +127,7 @@ filmy.push(Bridgetons);
 //Detail filmu
 
 const detailFilmuElement = document.querySelector ('#detail-filmu');
-/*if (detailFilmuElement) {*/
+if (detailFilmuElement) {
 	const idFilmu = location.hash.substring (1);
 	let film;
 	filmy.forEach ((porovnavanyFilm) => {
@@ -144,7 +144,9 @@ const detailFilmuElement = document.querySelector ('#detail-filmu');
 	plakat.height = film.plakat.vyska;
   
 }
-if (premieraElm) {
+//Ukol c.6 Premiera
+
+/*if (premieraElm) {
 	premieraElm.innerHTML = '';
 
 	// Pro každý film
@@ -155,7 +157,7 @@ if (premieraElm) {
 		const days = datumPremiery.diff(dayjs(), 'days');
   
 		// Vytvoření zprávy na základě rozdílu mezi dnešním datem a datem premiéry
-		let message = '';
+		const message = '';
 		if (days < -1) {
 		  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dny.`;
 		} else if (days === -1) {
@@ -175,6 +177,7 @@ if (premieraElm) {
 	  }
 	});
   }
+
 //Bonus premiera
 //Ziskani prvku s id "premiera"
 /*const premieraElm = document.querySelector ('#premiera');
