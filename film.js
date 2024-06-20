@@ -146,6 +146,8 @@ if (detailFilmuElement) {
 }
 //Ukol c.6 Premiera
 
+
+
 /*if (premieraElm) {
 	premieraElm.innerHTML = '';
 
@@ -215,7 +217,7 @@ let message = '';
 });*/
 
 //Ukol c.7
-/*const hvezdy = document.querySelectorAll('.fa-star');
+const hvezdy = document.querySelectorAll('.fa-star');
 let ohvezdickovano = 0;
 
 const nastavHodnoceni = (pocetHvezd) => {
@@ -229,7 +231,7 @@ const nastavHodnoceni = (pocetHvezd) => {
     }
   });
 };
-*/
+
 function zvyrazniHvezdicky(pocet) {
 	const hvezdicky = document.querySelectorAll('.fa-star');
   
