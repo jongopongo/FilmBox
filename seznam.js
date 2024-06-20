@@ -106,7 +106,7 @@ const filmy = [
 ]
 
 
-//Bonus Pridani filmu
+//Bonus k ukolu 4 Pridani filmu
 const Bridgetons = {
     id: "Bridgetons",
     nazev: "Bridgetonovi",
@@ -128,8 +128,8 @@ const seznamFilmu = document.querySelector('#seznam-filmu');
 
 
 if (seznamFilmu) {
-    seznamFilmu.innerHTML = '';
-    // Projde všechny filmy a přidá HTML pro každý film
+    seznamFilmu.innerHTML = ''; // vymaze vnitrni HTML,aby byl prazdny
+// Projde vsechny filmy a prida HTML pro kazdy film
     filmy.forEach((film) => {
         seznamFilmu.innerHTML += `
             <div class="col">
@@ -144,39 +144,6 @@ if (seznamFilmu) {
             </div>`;
     });
 }
-/*
-//7 Hodnoceni
-const hvezdy = document.querySelectorAll('.fa-star')
-let ohodnoceno = 0
-const nastavHodnoceni = (pocetHvezd) => {
-	let i = 0
-	hvezdy.forEach((hvezda) => {
-		i += 1
-
-		if (i <= pocetHvezd) {
-			hvezda.classList.remove('far')
-			hvezda.classList.add('fas')
-		} else if (i > pocetHvezd) {
-			hvezda.classList.add('far')
-			hvezda.classList.remove('fas')
-		}
-	})
-}
-const hvezdaClick = (evt) => {
-	ohodnoceno = Number(evt.target.textContent)
-	nastavHodnoceni(ohodnoceno)
-}
-const hvezdaMouseEnter = (evt) => {
-	nastavHodnoceni(Number(evt.target.textContent))
-}
-const hvezdaMouseLeave = () => {
-	nastavHodnoceni(ohodnoceno)
-}
-hvezdy.forEach((hvezda) => {
-	hvezda.addEventListener('click', hvezdaClick)
-	hvezda.addEventListener('mouseenter', hvezdaMouseEnter)
-	hvezda.addEventListener('mouseleave', hvezdaMouseLeave)
-})
 
 //8 Poznamka
 const textovePole = document.querySelector('#message-input')
@@ -258,4 +225,4 @@ if (document.querySelector('#prehravac')) {
 	let odpocet
 	document.addEventListener('mousemove', zobrazitPanel)
 	document.addEventListener('click', zobrazitPanel)
-}*/
+}

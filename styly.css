@@ -116,7 +116,7 @@ video[controls] + .player-controls {
 	margin-bottom: 0;
 }
 
-/* pro navigaci a tlačítko */
+/* pro navigaci a tlacitko */
 nav {
     display: flex;
     align-items: center;
@@ -125,4 +125,9 @@ nav {
     background: none;
     border: none;
 	font-size: 1.5rem;
+}
+
+/*cervene olemovane pole pro poznamku*/
+.is-invalid {
+    border: 2px solid red;
 }

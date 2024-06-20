@@ -105,7 +105,7 @@ const filmy = [
 	},
 ]
 
-//Pridani filmu
+//Pridani filmu Bonus
 const Bridgetons = 
 {
 	id:"Bridgetons",
@@ -125,6 +125,34 @@ filmy.push(Bridgetons);
 
 //Ukol c.5
 //Detail filmu
+const id = location.hash.substring(1)
+const film = filmy.find(x => x.id == id)
+const detail = document.querySelector('#detail-filmu')
+detail.querySelector('.card-title').innerHTML = film.nazev
+detail.querySelector('.card-text').innerHTML = film.popis
+const obrazek = detail.querySelector('img')
+obrazek.src = film.plakat.url
+obrazek.width = film.plakat.width
+obrazek.height = film.plakat.height
+
+
+const premiera = dayjs(film.premiera)
+const premieraText = premiera.format('D. M. YYYY')
+const dny = premiera.diff(dayjs(), 'days')
+let kdy
+if (dny > 5) {
+	kdy =  `což je za ${dny} dní.`
+} else if (dny > 1) {
+	kdy =  `což je za ${dny} dny.`
+} else if (dny == 1) {
+	kdy =  `což je zítra.`
+} else if (dny == 0) {
+	kdy =  `což je dnes.`
+} else if (dny == -1) {
+	kdy =  `což bylo včera.`
+} else if (dny < -1) {
+	kdy =  `což bylo před ${dny*-1} dny.`
+}
 
 const detailFilmuElement = document.querySelector ('#detail-filmu');
 if (detailFilmuElement) {
@@ -144,79 +172,55 @@ if (detailFilmuElement) {
 	plakat.height = film.plakat.vyska;
   
 }
+
 //Ukol c.6 Premiera
 
-
-
-/*if (premieraElm) {
-	premieraElm.innerHTML = '';
-
-	// Pro každý film
-	filmy.forEach((film) => {
-	  if (film.id === location.hash.slice(1, location.hash.length)) {
-		const datumPremiery = dayjs(film.premiera);
-		const formatovaneDatum = datumPremiery.format('D. M. YYYY');
-		const days = datumPremiery.diff(dayjs(), 'days');
-  
-		// Vytvoření zprávy na základě rozdílu mezi dnešním datem a datem premiéry
-		const message = '';
-		if (days < -1) {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dny.`;
-		} else if (days === -1) {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dnem.`;
-		} else if (days === 0) {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, dnes je premiéra.`;
-		} else if (days === 1) {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} den.`;
-		} else if (days >= 2 && days <= 4) {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dny.`;
-		} else {
-		  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dní.`;
-		}
-  
-		// Vložení zprávy do prvku s id "premiera"
-		premieraElm.innerHTML += `<p>${message}</p>`;
-	  }
-	});
-  }
-
 //Bonus premiera
-//Ziskani prvku s id "premiera"
-/*const premieraElm = document.querySelector ('#premiera');
+// Ziskani prvku s id "premiera"
+let premieraElm = document.querySelector('#premiera');
 
-if (premieraElm) 
- premieraElm.innerHTML = '';
- const idFilmu = location.hash.substring(1);
- const film = filmy.find(f => f.id === idFilmu);
-//Pro kazdy film
+premieraElm.innerHTML = '';
+
+// Pro kazdy film v poli filmy
 filmy.forEach((film) => {
-    if (film.id === location.hash.slice(1, location.hash.length)) { 
-	  const datumPremiery = dayjs(film.premiera);
-      const formatovaneDatum = datumPremiery.format('D. M. YYYY');
-	  const days = datumPremiery.diff(dayjs(), 'days');
+  if (film.id === location.hash.slice(1, location.hash.length)) {
+    // Ziskani data premiery filmu pomoci Day.js a formatovani
+    let datumPremiery = dayjs(film.premiera);
+    let formatovaneDatum = datumPremiery.format('D. M. YYYY');
 
-// Vytvoreni zpravy na základě rozdílu mezi dnešním datem a datem premiéry
-let message = '';
- if (days < -1) {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dny.`;
-}  else if (days === -1) {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(days)} dnem.`;
-}  else if (days === 0) {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, dnes je premiéra.`;
-}  else if (days === 1) {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} den.`;
-}  else if (days >= 2 && days <= 4) {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dny.`;
-}  else {
-  message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dní.`;
-}
+    // Vypocet rozdilu mezi dnesnim datem a datem premiery
+    let days = datumPremiery.diff(dayjs(), 'days');
 
-// Vložení zprávy do prvku s id "premiera"
+    // Vytvoreni zpravy na zaklade rozdilu mezi dnesnim datem a datem premiery
+    let message = '';
+    if (days < -1) {
+      if (days === 1) {
+        message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(
+          days,
+        )} dnem.`;
+      } else {
+        message = `Premiéra <strong>${formatovaneDatum}</strong>, což bylo před ${Math.abs(
+          days,
+        )} dny.`;
+      }
+    } else if (days > 1) {
+      if (days === 1) {
+        message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} den.`;
+      } else if (days >= 2 && days <= 4) {
+        message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dny.`;
+      } else {
+        message = `Premiéra <strong>${formatovaneDatum}</strong>, bude za ${days} dní.`;
+      }
+    } else {
+      message = `Premiéra <strong>${formatovaneDatum}</strong>, dnes je premiéra.`;
+    }
+
+    // Vlozeni zpravy do prvku s id "premiera"
     premieraElm.innerHTML += `<p>${message}</p>`;
   }
-});*/
+});
 
-//Ukol c.7
+//Ukol c.7 Hodnoceni filmu
 const hvezdy = document.querySelectorAll('.fa-star');
 let ohvezdickovano = 0;
 
@@ -263,33 +267,49 @@ hvezdy.forEach((hvezda) => {
 });
 
 //Ukol c.8
-const formular = document.querySelector ('#note-form');
-const formInput= document.querySelector('#message-input');
+//Vlastni poznamka
+const formular = document.querySelector('#note-form');
+const formInput = document.querySelector('#message-input');
 const checkElm = document.querySelector('#terms-checkbox');
 
-	formular.addEventListener( 'submit', (evt) => {
-		evt.preventDefault();
-//vymazani validace	
-	formInput.classList.remove('is-invalid');
-    checkElm.classList.remove('is-invalid');
+formular.addEventListener('submit', (evt) => {
+  evt.preventDefault(); // zamezi vychozimu chovani formulare
 
+  // Vymazani validace
+  formInput.classList.remove('is-invalid');
+  checkElm.classList.remove('is-invalid');
+
+  let valid = true;
+
+  // Overeni textoveho pole
   if (formInput.value.trim() === '') {
     formInput.classList.add('is-invalid');
-  } else if (!checkElm.checked) {
-    checkElm.classList.add('is-invalid');
-  } else {
+    formInput.focus();
+    valid = false;
+  }
 
-    // Uspesna validace
+  // Overeni checkboxu
+  if (!checkElm.checked) {
+    checkElm.classList.add('is-invalid');
+    if (valid) { // zamereni checkboxu pouze pokud textove pole je validni
+      checkElm.focus();
+    }
+    valid = false;
+  }
+
+  // Uspesna validace
+  if (valid) {
     const noteText = document.createElement('p');
     noteText.className = 'card-text';
     noteText.textContent = formInput.value;
 
-    // Vycisteni formulare
-    formInput.innerHTML = '';
-	//Validace poznamky
-    formInput.appendChild(noteText);
+    // Nahrazeni obsahu formulare
+    formular.innerHTML = '';
+    formular.appendChild(noteText);
   }
 });
+
+
 //Ukol c.9
 //Vlastni ovladani prehravace
 
@@ -334,20 +354,20 @@ document.addEventListener('keydown', (event) => {
 });
 
 
-//Extra bonus - skrytý panel
+//9 Extra bonus - skryty panel
 const ovladaciPanel = document.querySelector('.player-controls');
 let odpocet;
 
 const zobrazitOvladaciPanel = () => {
-  clearTimeout(odpocet); // Resetuje casovac pri kazdém pohybu mysi nebo stisku klavesy
-  ovladaciPanel.classList.remove('hidden'); // Zobrazí ovladaci panel
+  clearTimeout(odpocet); // Resetuje casovac pri kazdem pohybu mysi nebo stisku klavesy
+  ovladaciPanel.classList.remove('hidden'); // Zobrazi ovladaci panel
   odpocet = setTimeout(skrytOvladaciPanel, 3000); // Spusti casovac na skryti po 3 sekundach neaktivity
 };
 
 const skrytOvladaciPanel = () => {
-  ovladaciPanel.classList.add('hidden'); // Přidá třídu hidden pro skrytí ovládacího panelu
+  ovladaciPanel.classList.add('hidden'); // Prida tridu hidden pro skryti ovladaciho panelu
 };
 
-// Přidání event listenerů na dokument pro detekci pohybu myší a stisku klávesy
+// Pridani event listeneru na dokument pro detekci pohybu mysi a stisku klavesy
 document.addEventListener('mousemove', zobrazitOvladaciPanel);
 document.addEventListener('keydown', zobrazitOvladaciPanel);
